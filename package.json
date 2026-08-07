@@ -1,0 +1,32 @@
+{
+  "name": "workspace",
+  "version": "1.0.31",
+  "license": "MIT",
+  "packageManager": "pnpm@10.26.1",
+  "workspaces": [
+    "artifacts/*",
+    "lib/*",
+    "scripts"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build:railway",
+    "build:railway": "npm run typecheck && npm run build --workspace=@workspace/api-server",
+    "db:push": "npm run push --workspace=@workspace/db",
+    "db:prepare": "npm run push-force --workspace=@workspace/db",
+    "start": "npm run start:prod",
+    "start:prod": "npm run start --workspace=@workspace/api-server",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "npm run typecheck:libs && npm run typecheck --workspaces --if-present"
+  },
+  "private": true,
+  "dependencies": {
+    "@replit/connectors-sdk": "^0.4.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "typescript": "~5.9.3"
+  }
+}
